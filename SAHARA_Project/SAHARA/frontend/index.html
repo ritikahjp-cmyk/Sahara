@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAHARA | Domestic Violence Support</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ===== LOGIN FIRST SCREEN ===== */
+
+#loginScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff7fa;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 35px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+}
+
+.login-card .logo-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #b31258;
+  color: white;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.login-card h1 {
+  color: #b31258;
+  margin-bottom: 10px;
+}
+
+.login-card p {
+  color: #666;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #b31258;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  opacity: 0.9;
+}
+
+#loginMessage {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+/* Main website hidden until login */
+#mainWebsite {
+  display: none;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+
+<div id="loginScreen">
+
+  <div class="login-card">
+
+    <div class="logo-icon">S</div>
+
+    <h1>Welcome to SAHARA</h1>
+
+    <p>Login with your email to continue</p>
+
+    <input
+      type="email"
+      id="loginEmail"
+      placeholder="Enter your email"
+      autocomplete="email"
+    >
+
+    <button onclick="sendLoginOTP()">
+      Send OTP
+    </button>
+
+    <div id="otpSection" style="display:none; margin-top:15px;">
+
+      <input
+        type="text"
+        id="loginOTP"
+        placeholder="Enter 6-digit OTP"
+        maxlength="6"
+        inputmode="numeric"
+      >
+
+      <button onclick="verifyLoginOTP()">
+        Verify OTP
+      </button>
+
+    </div>
+
+    <p id="loginMessage"></p>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MAIN SAHARA WEBSITE ================= -->
+
+<div id="mainWebsite">
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">S</div>
+    <div><h2>SAHARA</h2><span>Support • Awareness • Safety</span></div>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#understand">Understand</a>
+    <a href="#safety">Safety Plan</a>
+    <a href="#legal">Legal Help</a>
+    <a href="#support">Support</a>
+    <a href="#notes">SafeNote</a>
+
+  </nav>
+
+  <button class="quick-exit" onclick="quickExit()">
+    Quick Exit
+  </button>
+  <button onclick="logoutSahara()" class="logout-btn">
+    Logout
+</button>
+
+</header>
+
+
+<section id="home" class="hero">
+
+  <div class="hero-content">
+
+    <p class="small-title">
+      YOU DESERVE SAFETY & RESPECT
+    </p>
+
+    <h1>
+      You are not alone.<br>
+      <span>SAHARA is here.</span>
+    </h1>
+
+    <p>
+      SAHARA is an awareness and support platform providing information
+      about domestic violence, safety planning, legal awareness and
+      support services.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#support" class="btn primary">
+        Find Support
+      </a>
+
+      <a href="#understand" class="btn secondary">
+        Learn More
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="hero-card">
+
+    <div class="heart">♡</div>
+
+    <h3>Your safety matters.</h3>
+
+    <p>
+      Access helpful information, safety resources and support options.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="quick-help">
+
+  <h2>Need Information Quickly?</h2>
+
+  <div class="quick-grid">
+
+    <div class="quick-card" onclick="showSection('safety')">
+      <span>🛡️</span>
+      <h3>Safety Plan</h3>
+      <p>Create a personal safety checklist.</p>
+    </div>
+
+    <div class="quick-card" onclick="showSection('legal')">
+      <span>⚖️</span>
+      <h3>Legal Awareness</h3>
+      <p>Learn about rights and available support.</p>
+    </div>
+
+    <div class="quick-card" onclick="showSection('support')">
+      <span>🤝</span>
+      <h3>Support</h3>
+      <p>Find important support services.</p>
+    </div>
+
+    <div class="quick-card" onclick="showSection('notes')">
+      <span>🔐</span>
+      <h3>SafeNote</h3>
+      <p>Keep private notes for your own reference.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="understand" class="section">
+
+  <div class="section-heading">
+
+    <p>KNOWLEDGE IS POWER</p>
+
+    <h2>Understanding Domestic Violence</h2>
+
+    <span>
+      Domestic violence can take different forms. Recognizing harmful
+      behaviour can help someone understand their situation and seek
+      appropriate support.
+    </span>
+
+  </div>
+
+  <div class="violence-grid">
+
+    <div class="info-card">
+
+      <div class="icon">🛑</div>
+
+      <h3>Physical Violence</h3>
+
+      <p>
+        Physical actions that cause or threaten physical harm.
+      </p>
+
+      <button type="button" onclick="readViolence('physical')">
+        Learn More
+      </button>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="icon">💬</div>
+
+      <h3>Emotional Abuse</h3>
+
+      <p>
+        Repeated behaviour intended to control, humiliate or intimidate
+        another person.
+      </p>
+
+      <button type="button" onclick="readViolence('emotional')">
+        Learn More
+      </button>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="icon">💰</div>
+
+      <h3>Financial Abuse</h3>
+
+      <p>
+        Controlling access to money, employment or financial resources.
+      </p>
+
+      <button type="button" onclick="readViolence('financial')">
+        Learn More
+      </button>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <div class="icon">📱</div>
+
+      <h3>Digital Abuse</h3>
+
+      <p>
+        Misuse of phones, social media or technology to monitor,
+        threaten or control someone.
+      </p>
+
+      <button type="button" onclick="readViolence('digital')">
+        Learn More
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="safety" class="section pink-section">
+
+  <div class="section-heading">
+
+    <p>PERSONAL SAFETY</p>
+
+    <h2>Safety Planning</h2>
+
+    <span>
+      A safety plan can help organize important information and resources.
+    </span>
+
+  </div>
+  <!-- ================= ONE TAP SOS ================= -->
+
+<div class="sos-card">
+    <div class="sos-icon">🚨</div>
+
+    <h3>One-Tap Emergency SOS</h3>
+
+    <p>
+        In an emergency, quickly share your location
+        and alert your trusted contacts.
+    </p>
+
+    <button class="sos-button" onclick="startSOS()">
+        🚨 ACTIVATE SOS
+    </button>
+</div>
+
+<!-- SOS RESULT -->
+<div id="sosResult" class="sos-result" style="display:none;">
+
+    <h3>🚨 Emergency Help</h3>
+
+    <p id="sosStatus">
+        Preparing emergency information...
+    </p>
+
+    <div id="sosLocation"></div>
+
+    <div class="sos-actions">
+
+        <button onclick="callEmergency()">
+            📞 Call 112
+        </button>
+
+        <button onclick="shareEmergency()">
+            📤 Share Alert
+        </button>
+
+    </div>
+
+</div>
+
+
+  <div class="safety-container">
+
+    <div class="resources-box">
+
+        <div class="resources-heading">
+
+            <h3>Women Help & Resources</h3>
+
+            <p>
+                Access official information and support resources
+                for women.
+            </p>
+
+        </div>
+
+
+        <div class="resource-grid">
+
+            <div class="resource-card">
+
+                <div class="resource-icon">🆘</div>
+
+                <h3>Women Helpline</h3>
+
+                <p>
+                    Government information and support resources
+                    for women.
+                </p>
+
+                <a
+                    href="https://www.spniwcd.wcd.gov.in/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Visit Website →
+                </a>
+
+            </div>
+
+
+            <div class="resource-card">
+
+                <div class="resource-icon">⚖️</div>
+
+                <h3>National Commission for Women</h3>
+
+                <p>
+                    Information about women's rights and
+                    complaint-related services.
+                </p>
+
+                <a
+                    href="https://www.ncw.gov.in/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Visit NCW →
+                </a>
+
+            </div>
+
+
+            <div class="resource-card">
+
+                <div class="resource-icon">🏛️</div>
+
+                <h3>Women & Child Development</h3>
+
+                <p>
+                    Government schemes, programmes and information
+                    related to women and children.
+                </p>
+
+                <a
+                    href="https://wcd.gov.in/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Visit Website →
+                </a>
+
+            </div>
+
+
+            <div class="resource-card">
+
+                <div class="resource-icon">📋</div>
+
+                <h3>Government Resources</h3>
+
+                <p>
+                    Find government information and services
+                    for women and children.
+                </p>
+
+                <a
+                    href="https://www.india.gov.in/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Explore Resources →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<section id="legal" class="section">
+
+  <div class="section-heading">
+
+    <p>KNOW YOUR RIGHTS</p>
+
+    <h2>Legal Awareness</h2>
+
+    <span>
+      Information about legal protections and support can help people
+      understand where to seek assistance.
+    </span>
+
+  </div>
+
+  <div class="legal-grid">
+
+    <div class="legal-card">
+
+      <h3>Protection</h3>
+
+      <p>
+        Learn about protections available under Indian law relating
+        to domestic violence.
+      </p>
+
+      <button onclick="readMore('protection')">
+        Learn More
+      </button>
+
+    </div>
+
+
+    <div class="legal-card">
+
+      <h3>Legal Aid</h3>
+
+      <p>
+        Information about accessing legal assistance and support services.
+      </p>
+
+      <button onclick="readMore('legal')">
+        Learn More
+      </button>
+
+    </div>
+
+
+    <div class="legal-card">
+
+      <h3>Support Process</h3>
+
+      <p>
+        General information about seeking help through appropriate authorities.
+      </p>
+
+      <button onclick="readMore('process')">
+        Learn More
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="support" class="section pink-section">
+
+  <div class="section-heading">
+
+    <p>YOU DON'T HAVE TO DO THIS ALONE</p>
+
+    <h2>Support Services</h2>
+
+  </div>
+
+  <div id="supportGrid" class="support-grid"></div>
+
+</section>
+<!-- ================= TRUSTED CONTACTS ================= -->
+
+<section id="trustedContacts" class="section">
+
+    <h2>Trusted Contacts</h2>
+
+    <p>
+        Save up to 3 people you trust for emergency situations.
+    </p>
+
+    <div class="contacts-box">
+
+        <div class="contact-input">
+            <input
+                type="text"
+                id="contactName1"
+                placeholder="Contact 1 Name"
+            >
+
+            <input
+                type="tel"
+                id="contactPhone1"
+                placeholder="Contact 1 Phone Number"
+            >
+        </div>
+
+        <div class="contact-input">
+            <input
+                type="text"
+                id="contactName2"
+                placeholder="Contact 2 Name"
+            >
+
+            <input
+                type="tel"
+                id="contactPhone2"
+                placeholder="Contact 2 Phone Number"
+            >
+        </div>
+
+        <div class="contact-input">
+            <input
+                type="text"
+                id="contactName3"
+                placeholder="Contact 3 Name"
+            >
+
+            <input
+                type="tel"
+                id="contactPhone3"
+                placeholder="Contact 3 Phone Number"
+            >
+        </div>
+
+        <button onclick="saveTrustedContacts()">
+            💾 Save Trusted Contacts
+        </button>
+
+        <p id="contactMessage"></p>
+
+    </div>
+
+</section>
+
+
+<section id="notes" class="section">
+
+  <div class="section-heading">
+
+    <p>PRIVATE NOTES</p>
+
+    <h2>SafeNote</h2>
+
+    <span>
+      Demo notes are stored locally in this browser. Do not use this
+      demo storage for highly sensitive information.
+    </span>
+
+  </div>
+
+
+  <div class="note-box">
+
+    <input type="date" id="noteDate">
+
+    <textarea
+      id="noteText"
+      placeholder="Write a private note...">
+    </textarea>
+
+    <button onclick="saveNote()">
+      Save Note
+    </button>
+
+    <div id="noteStatus"></div>
+
+  </div>
+
+  <div id="savedNotes"></div>
+
+</section>
+
+
+<footer>
+
+  <div>
+
+    <h2>SAHARA</h2>
+
+    <p>
+      Support • Awareness • Safety
+    </p>
+
+  </div>
+
+  <div>
+
+    <p>
+      Educational and support-information project.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<div id="modal" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">
+      &times;
+    </span>
+
+    <h2 id="modalTitle"></h2>
+
+    <p id="modalText"></p>
+
+    <button onclick="closeModal()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
